@@ -24,7 +24,7 @@ export const createShortUrl = async (req, res) => {
             expiry,
         });
 
-        await log("backend", "info", "controller", `Short URL created: ${code}`);
+        await log("backend", "info", "controller", `Short URL created`);
         res.status(201).json({
             shortLink: `${req.protocol}://${req.get("host")}/${code}`,
             expiry: expiry.toISOString(),
@@ -41,12 +41,12 @@ export const redirectToOriginalUrl = async (req, res) => {
         const record = await ShortUrl.findOne({ shortcode });
 
         if (!record) {
-            await log("backend", "warn", "controller", `Shortcode not found: ${shortcode}`);
+            await log("backend", "warn", "controller", `Shortcode not found`);
             return res.status(404).json({ error: "Shortcode not found" });
         }
 
         if (new Date() > record.expiry) {
-            await log("backend", "warn", "controller", `Expired shortcode: ${shortcode}`);
+            await log("backend", "warn", "controller", `Expired shortcode`);
             return res.status(410).json({ error: "Shortcode expired" });
         }
 
@@ -56,7 +56,7 @@ export const redirectToOriginalUrl = async (req, res) => {
         });
         await record.save();
 
-        await log("backend", "info", "handler", `Redirected to ${record.originalUrl}`);
+        await log("backend", "info", "handler", `Redirected`);
         res.redirect(record.originalUrl);
     } catch (err) {
         await log("backend", "error", "handler", err.message);
@@ -70,12 +70,12 @@ export const getUrlStats = async (req, res) => {
         const record = await ShortUrl.findOne({ shortcode });
 
         if (!record) {
-            await log("backend", "warn", "controller", `Stats requested for missing shortcode: ${shortcode}`);
+            await log("backend", "warn", "controller", `Stats requested for missing shortcode`);
             return res.status(404).json({ error: "Shortcode not found" });
         }
 
         const { originalUrl, createdAt, expiry, clicks } = record;
-        await log("backend", "info", "controller", `Stats retrieved for shortcode: ${shortcode}`);
+        await log("backend", "info", "controller", `Stats retrieved for shortcode`);
         res.json({
             shortcode,
             originalUrl,

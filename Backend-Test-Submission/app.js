@@ -11,12 +11,13 @@ const app = express();
 
 app.use(express.json());
 app.use(requestLogger);
-app.use("/", router);
 
-// Optional health check route
 app.get("/", (req, res) => {
     res.send("Hello from the backend!");
 });
+
+
+app.use("/", router);
 
 export const initLog = async () => {
     try {
