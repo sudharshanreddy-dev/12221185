@@ -3,7 +3,7 @@ node_modules/
 **/node_modules/
 
 # Ignore environment variables in all subfolders
-.env
+Logging-Middleware/.env
 **/.env
 
 # Ignore logs
