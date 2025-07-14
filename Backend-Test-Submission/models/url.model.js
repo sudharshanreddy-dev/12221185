@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const clickSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now },
     referrer: String,
-    location: String,
 });
 
 const urlSchema = new mongoose.Schema({

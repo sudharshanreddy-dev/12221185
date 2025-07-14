@@ -1,19 +1,14 @@
 import express from "express";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
-
+import router from "./routes/url.routes.js";
+import { requestLogger } from "./middleware/requestLogger.js";
 
 dotenv.config();
-const PORT = process.env.PORT || 3000;
-
 
 const app = express();
+app.use(express.json());
+app.use(requestLogger);
+app.use("/", router);
 
-
-
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+export default app;
