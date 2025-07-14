@@ -1,0 +1,26 @@
+# Ignore node_modules in all subfolders
+node_modules/
+**/node_modules/
+
+# Ignore environment variables in all subfolders
+.env
+**/.env
+
+# Ignore logs
+*.log
+**/*.log
+logs/
+**/logs/
+npm-debug.log*
+
+# Ignore build directories (if compiling TypeScript or Babel)
+dist/
+**/dist/
+build/
+**/build/
+
+# IDE and OS specific files
+.idea/
+.DS_Store
+Thumbs.db
+
